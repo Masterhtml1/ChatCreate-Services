@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatCreat Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .main-page {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .service-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 300px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-box h2 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .creator-note {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .creator-note h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .creator-note p {
+            color: #333;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .creator-note p:last-child {
+            margin-bottom: 0;
+        }
+
+        .order-page {
+            display: none;
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .order-title {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .price-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .payment-info {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .payment-info h3 {
+            color: #856404;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .payment-info p {
+            margin-bottom: 0.8rem;
+            color: #856404;
+            line-height: 1.4;
+        }
+
+        .payment-info p:last-child {
+            margin-bottom: 0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .admin-page {
+            display: none;
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .admin-header h2 {
+            color: #667eea;
+            margin: 0;
+        }
+
+        .close-admin {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .close-admin:hover {
+            background: #c82333;
+        }
+
+        .order-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .order-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .order-content {
+            color: #333;
+        }
+
+        .admin-access {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .admin-access:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
+        }
+
+        .no-orders {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 2rem;
+        }
+
+        /* Loading Animation Styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .submit-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn:disabled:hover {
+            background: #6c757d;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .service-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .service-box {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Page -->
+        <div id="main-page" class="main-page">
+            <h1 class="main-title">ChatCreat Services</h1>
+            <div class="service-container">
+                <div class="service-box" onclick="showOrderPage('3d-print')">
+                    <h2>Custom 3D Print of Your Choice</h2>
+                </div>
+                <div class="service-box" onclick="showOrderPage('website')">
+                    <h2>Custom Website of Your Choice</h2>
+                </div>
+            </div>
+            
+            <!-- Creator Note -->
+            <div class="creator-note">
+                <h3>👋 About the Creator</h3>
+                <p>Hi, I'm Bronson/The owner of ChatCreat Services. I am a web builder/designer - one of my most recent projects was ChatCreate. The only downside is it costs money to keep it running, so I created ChatCreate Services so you can get something from me and I can keep ChatCreate running.</p>
+                <p><strong>Please add a price you feel comfortable with for any of your orders.</strong></p>
+                <p><strong>Note:</strong> You have to hand me money before I will start your print/website - this is for security reasons. Also, print time and traffic will affect how fast you get your item.</p>
+            </div>
+        </div>
+
+        <!-- 3D Print Order Page -->
+        <div id="3d-print-page" class="order-page">
+            <h2 class="order-title">Custom 3D Print Order</h2>
+            <div class="price-info">
+                Every print: $15 (unless negotiated)
+            </div>
+            
+            <div class="payment-info">
+                <h3>📋 Important Payment Information</h3>
+                <p><strong>You must pay in person to Bronson before you can receive your item.</strong></p>
+                <p><strong>Please note:</strong> If there are a lot of requests, it may take a while for you to receive your item. We appreciate your patience!</p>
+                <p><em>By continuing, you acknowledge that you understand the payment and delivery process.</em></p>
+            </div>
+            
+            <form onsubmit="submitOrder(event, '3d-print')">
+                <div class="form-group">
+                    <label for="print-name">Your Name:</label>
+                    <input type="text" id="print-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="print-details">What 3D print do you want?</label>
+                    <textarea id="print-details" rows="5" placeholder="Describe your 3D print request in detail..." required></textarea>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="back-btn" onclick="showMainPage()">Back</button>
+                    <button type="submit" class="submit-btn">✓ Submit Order</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Website Order Page -->
+        <div id="website-page" class="order-page">
+            <h2 class="order-title">Custom Website Order</h2>
+            <div class="price-info">
+                $10 per website (or less if negotiated)
+            </div>
+            
+            <div class="payment-info">
+                <h3>📋 Important Payment Information</h3>
+                <p><strong>You must pay in person to Bronson before you can receive your item.</strong></p>
+                <p><strong>Please note:</strong> If there are a lot of requests, it may take a while for you to receive your item. We appreciate your patience!</p>
+                <p><em>By continuing, you acknowledge that you understand the payment and delivery process.</em></p>
+            </div>
+            
+            <form onsubmit="submitOrder(event, 'website')">
+                <div class="form-group">
+                    <label for="website-name">Your Name:</label>
+                    <input type="text" id="website-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="website-details">What website do you want?</label>
+                    <textarea id="website-details" rows="5" placeholder="Describe your website requirements in detail..." required></textarea>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="back-btn" onclick="showMainPage()">Back</button>
+                    <button type="submit" class="submit-btn">✓ Submit Order</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Admin Page -->
+        <div id="admin-page" class="admin-page">
+            <div class="admin-header">
+                <h2>🔧 Admin Panel - Order Management</h2>
+                <button class="close-admin" onclick="closeAdmin()">✕ Close</button>
+            </div>
+            
+            <h3>3D Print Orders:</h3>
+            <div id="print-orders">
+                <div class="no-orders">No 3D print orders yet.</div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Website Orders:</h3>
+            <div id="website-orders">
+                <div class="no-orders">No website orders yet.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-container">
+            <div class="spinner"></div>
+            <div class="loading-text">Submitting your order...</div>
+        </div>
+    </div>
+
+    <!-- Admin Access Button -->
+    <button class="admin-access" onclick="openAdmin()">🔧 Admin</button>
+
+    <script>
+        // Google Sheets configuration
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxB2JMWG2j-_VN3_P2PRJlw8kZL_-pre_Z4DYMJb9YXHQjMlkG5mWE1cZRfgEBM9Heq/exec';
+        
+        // Local storage backup
+        let orders = {
+            '3d-print': JSON.parse(localStorage.getItem('3d-print-orders') || '[]'),
+            'website': JSON.parse(localStorage.getItem('website-orders') || '[]')
+        };
+
+        function showOrderPage(service) {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById(service + '-page').style.display = 'block';
+        }
+
+        function showMainPage() {
+            document.getElementById('main-page').style.display = 'block';
+            document.getElementById('3d-print-page').style.display = 'none';
+            document.getElementById('website-page').style.display = 'none';
+        }
+
+        async function submitOrder(event, service) {
+            event.preventDefault();
+            
+            const nameField = service === '3d-print' ? 'print-name' : 'website-name';
+            const detailsField = service === '3d-print' ? 'print-details' : 'website-details';
+            
+            const name = document.getElementById(nameField).value;
+            const details = document.getElementById(detailsField).value;
+            const timestamp = new Date().toLocaleString();
+            const serviceType = service === '3d-print' ? '3D Print' : 'Website';
+            
+            // Show loading animation
+            showLoading();
+            
+            // Disable submit button
+            const submitBtn = event.target.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            const orderData = {
+                name: name,
+                details: details,
+                timestamp: timestamp,
+                service: serviceType
+            };
+            
+            try {
+                // Add to local storage as backup
+                orders[service].push(orderData);
+                localStorage.setItem(service + '-orders', JSON.stringify(orders[service]));
+                
+                // Send to Google Sheets
+                if (GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(orderData)
+                    });
+                    
+                    // Add small delay to show the loading animation
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+                
+                // Hide loading animation
+                hideLoading();
+                
+                // Clear form
+                document.getElementById(nameField).value = '';
+                document.getElementById(detailsField).value = '';
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✓ Submit Order';
+                
+                // Show success message
+                alert('✅ Order submitted successfully! We will contact you soon.');
+                
+                // Go back to main page
+                showMainPage();
+                
+                // Update admin panel if it's open
+                updateAdminPanel();
+                
+            } catch (error) {
+                console.log('Error submitting order:', error);
+                
+                // Hide loading animation
+                hideLoading();
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✓ Submit Order';
+                
+                // Still show success since local storage worked
+                alert('✅ Order submitted successfully! We will contact you soon.');
+                
+                // Clear form and continue
+                document.getElementById(nameField).value = '';
+                document.getElementById(detailsField).value = '';
+                showMainPage();
+                updateAdminPanel();
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        function openAdmin() {
+            const password = prompt("Enter admin password:");
+            if (password === "ThePig906") {
+                // Redirect directly to Google Sheet
+                window.open("https://docs.google.com/spreadsheets/d/1PAgaplJg7e9x2sAaLdHW6KOjdDSomrEHoYHg71_f9z8/edit?gid=0#gid=0", "_blank");
+            } else if (password !== null) {
+                alert("Incorrect password!");
+            }
+        }
+
+        function closeAdmin() {
+            document.getElementById('admin-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+            document.querySelector('.admin-access').style.display = 'block';
+        }
+
+        function updateAdminPanel() {
+            // Update 3D print orders
+            const printContainer = document.getElementById('print-orders');
+            if (orders['3d-print'].length === 0) {
+                printContainer.innerHTML = '<div class="no-orders">No 3D print orders yet.</div>';
+            } else {
+                printContainer.innerHTML = '';
+                orders['3d-print'].forEach((order, index) => {
+                    const orderDiv = document.createElement('div');
+                    orderDiv.className = 'order-item';
+                    orderDiv.innerHTML = `
+                        <div class="order-meta">
+                            <span>Order #${index + 1} - ${order.name}</span>
+                            <span>${order.timestamp}</span>
+                        </div>
+                        <div class="order-content">
+                            <strong>Request:</strong> ${order.details}
+                        </div>
+                    `;
+                    printContainer.appendChild(orderDiv);
+                });
+            }
+            
+            // Update website orders
+            const websiteContainer = document.getElementById('website-orders');
+            if (orders['website'].length === 0) {
+                websiteContainer.innerHTML = '<div class="no-orders">No website orders yet.</div>';
+            } else {
+                websiteContainer.innerHTML = '';
+                orders['website'].forEach((order, index) => {
+                    const orderDiv = document.createElement('div');
+                    orderDiv.className = 'order-item';
+                    orderDiv.innerHTML = `
+                        <div class="order-meta">
+                            <span>Order #${index + 1} - ${order.name}</span>
+                            <span>${order.timestamp}</span>
+                        </div>
+                        <div class="order-content">
+                            <strong>Request:</strong> ${order.details}
+                        </div>
+                    `;
+                    websiteContainer.appendChild(orderDiv);
+                });
+            }
+        }
+
+        // Load orders on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAdminPanel();
+        });
+    </script>
+</body>
+</html>
